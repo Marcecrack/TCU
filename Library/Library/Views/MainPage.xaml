@@ -5,107 +5,108 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Library.Views">
 
-    <StackLayout BackgroundColor="#072357">
-        <Frame
-            Margin="15"
-            BackgroundColor="White"
-            BorderColor="Black"
-            CornerRadius="55"
-            HasShadow="True"
-            HorizontalOptions="CenterAndExpand"
-            IsClippedToBounds="True">
-            <Image
-                x:Name="ImageGrecia"
-                Grid.Row="0"
-                Grid.ColumnSpan="2"
-                Aspect="AspectFit"
-                HeightRequest="75"
-                VerticalOptions="CenterAndExpand"
-                WidthRequest="75" />
-        </Frame>
-        <Frame
-            Margin="15"
-            BackgroundColor="White"
-            BorderColor="Black"
-            CornerRadius="5"
-            HasShadow="True"
-            HorizontalOptions="CenterAndExpand"
-            IsClippedToBounds="True"
-            VerticalOptions="CenterAndExpand">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-
+    <ScrollView>
+        <StackLayout BackgroundColor="#072357">
+            <Frame
+                Margin="15"
+                BackgroundColor="White"
+                BorderColor="Black"
+                CornerRadius="55"
+                HasShadow="True"
+                HorizontalOptions="CenterAndExpand"
+                IsClippedToBounds="True">
                 <Image
-                    x:Name="ImageStars"
-                    Grid.RowSpan="3"
-                    Grid.ColumnSpan="2" />
-                <Label
+                    x:Name="ImageGrecia"
                     Grid.Row="0"
-                    Grid.Column="0"
-                    FontSize="Medium"
-                    Text="Libro:"
-                    TextColor="Black" />
-                <Entry
-                    x:Name="txtBook"
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    HorizontalTextAlignment="Center"
-                    Placeholder="Libro a buscar..."
-                    PlaceholderColor="Black"
-                    Text="{Binding Book, Mode=TwoWay}"
-                    TextColor="Black" />
+                    Grid.ColumnSpan="2"
+                    Aspect="AspectFit"
+                    HeightRequest="75"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="75" />
+            </Frame>
+            <Frame
+                Margin="15"
+                BackgroundColor="White"
+                BorderColor="Black"
+                CornerRadius="5"
+                HasShadow="True"
+                HorizontalOptions="CenterAndExpand"
+                IsClippedToBounds="True"
+                VerticalOptions="CenterAndExpand">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
 
-                <Label
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    FontSize="Medium"
-                    Text="Autor:"
-                    TextColor="Black" />
-                <Entry
-                    x:Name="txtAuthor"
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    HorizontalTextAlignment="Center"
-                    Placeholder="Autor a buscar..."
-                    PlaceholderColor="Black"
-                    Text="{Binding Author, Mode=TwoWay}"
-                    TextColor="Black" />
+                    <Image
+                        x:Name="ImageStars"
+                        Grid.RowSpan="3"
+                        Grid.ColumnSpan="2" />
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        FontSize="Medium"
+                        Text="Libro:"
+                        TextColor="Black" />
+                    <Entry
+                        x:Name="txtBook"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        HorizontalTextAlignment="Center"
+                        Placeholder="Libro a buscar..."
+                        PlaceholderColor="Black"
+                        Text="{Binding Book, Mode=TwoWay}"
+                        TextColor="Black" />
 
-                <Label
-                    Grid.Row="2"
-                    Grid.Column="0"
-                    FontSize="Medium"
-                    Text="Categoría:"
-                    TextColor="Black" />
-                <Entry
-                    x:Name="txtCategory"
-                    Grid.Row="2"
-                    Grid.Column="1"
-                    Margin="0,0,0,0"
-                    HorizontalTextAlignment="Center"
-                    Placeholder="Categoría a buscar..."
-                    PlaceholderColor="Black"
-                    Text="{Binding Category, Mode=TwoWay}"
-                    TextColor="Black" />
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        FontSize="Medium"
+                        Text="Autor:"
+                        TextColor="Black" />
+                    <Entry
+                        x:Name="txtAuthor"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        HorizontalTextAlignment="Center"
+                        Placeholder="Autor a buscar..."
+                        PlaceholderColor="Black"
+                        Text="{Binding Author, Mode=TwoWay}"
+                        TextColor="Black" />
 
-            </Grid>
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        FontSize="Medium"
+                        Text="Categoría:"
+                        TextColor="Black" />
+                    <Entry
+                        x:Name="txtCategory"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Margin="0,0,0,0"
+                        HorizontalTextAlignment="Center"
+                        Placeholder="Categoría a buscar..."
+                        PlaceholderColor="Black"
+                        Text="{Binding Category, Mode=TwoWay}"
+                        TextColor="Black" />
 
-        </Frame>
-        <Button
-            x:Name="btnSearch"
-            BackgroundColor="#034418"
-            Command="{Binding SearchBooksCommand}"
-            Text="Buscar"
-            VerticalOptions="EndAndExpand" />
+                </Grid>
 
-    </StackLayout>
+            </Frame>
+            <Button
+                x:Name="btnSearch"
+                BackgroundColor="#034418"
+                Command="{Binding SearchBooksCommand}"
+                Text="Buscar"
+                VerticalOptions="EndAndExpand" />
 
+        </StackLayout>
+    </ScrollView>
 </ContentPage>

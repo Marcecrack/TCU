@@ -8,7 +8,7 @@
     {
         #region Attributes
 
-        public ObservableCollection<ModelBook> lstBooks;
+        public ObservableCollection<Item> lstBooks;
         public string Book;
         public string Author;
         public string Category;
@@ -21,7 +21,7 @@
         #endregion
 
         #region Properties
-        public ObservableCollection<ModelBook> LstBooks
+        public ObservableCollection<Item> LstBooks
         {
             get { return this.lstBooks; }
             set { lstBooks = value; }
@@ -57,8 +57,8 @@
                 return;
             }
 
-            var list = (List<ModelBook>)response.Result;
-            LstBooks = new ObservableCollection<ModelBook>(list);
+            var list = (ModelBook)response.Result;
+            LstBooks = new ObservableCollection<Item>(list.items);
         }
         #endregion
     }

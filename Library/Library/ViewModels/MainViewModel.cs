@@ -28,7 +28,8 @@
                     IsSuccess = false,
                     Message = "Por favor active su internet!"
                 };
-            var isReachable = await CrossConnectivity.Current.IsRemoteReachable("google.com");
+
+            var isReachable = await CrossConnectivity.Current.IsRemoteReachable("youtube.com");
 
             if (!isReachable)
                 return new Response
@@ -36,6 +37,7 @@
                     IsSuccess = false,
                     Message = "Por favor revice su conexión con internet!"
                 };
+
             return new Response
             {
                 IsSuccess = true,
@@ -43,37 +45,23 @@
             };
 
         }
-        #region Service
-        private string Url = "https://www.googleapis.com/books/v1/volumes?q=";
-        private readonly string FilterBook = "intitle:";
-        private readonly string FilterAuthor = "inauthor:";
-        private readonly string FreeBook = "&filter=free-ebooks";
-        private readonly string FilterCategory = "subject:";
-        public string BuildUriString(string book, string author, string category)
-        {
-            if (!string.IsNullOrWhiteSpace(book)) Url = string.Concat(Url, FilterBook, book);
-            if (!string.IsNullOrWhiteSpace(author)) Url = string.Concat(Url, FilterAuthor, author);
-            if (!string.IsNullOrWhiteSpace(category)) Url = string.Concat(Url, FilterCategory, category);
 
-            return string.Concat(Url, FreeBook);
-        }
-        #endregion
         private async void SearchBooks()
         {
 
-            //var connection = CheckConnection();
-            //if (!connection.Result.IsSuccess)
-            //{
-            //    await Application.Current.MainPage.DisplayAlert("Error", connection.Result.Message, "Ok");
-            //    return;
-            //}
-            //if (string.IsNullOrWhiteSpace(Book) &&
-            //    string.IsNullOrWhiteSpace(Author) &&
-            //    string.IsNullOrWhiteSpace(Category))
-            //{
-            //    await Application.Current.MainPage.DisplayAlert("Error", "No se se ingresó un valor para los campos", "Ok");
-            //    return;
-            //}
+            var connection = CheckConnection();
+            if (!connection.Result.IsSuccess)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", connection.Result.Message, "Ok");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(Book) &&
+                string.IsNullOrWhiteSpace(Author) &&
+                string.IsNullOrWhiteSpace(Category))
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "No se se ingresó un valor para los campos", "Ok");
+                return;
+            }
 
 
             await Application.Current.MainPage.Navigation.PushAsync(new SearchedBooksPage(Book, Author, Category));
