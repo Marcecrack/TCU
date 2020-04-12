@@ -47,14 +47,14 @@
                     };
 
 
-                var list = JsonConvert.DeserializeObject<ModelBook>(result);
+                var list = JsonConvert.DeserializeObject<JSONModel>(result);
 
 
                 return new Response
                 {
                     IsSuccess = true,
                     Message = "OK",
-                    Result = list
+                    Result = list.items
                 };
             }
             catch (Exception ex)

@@ -1,32 +1,44 @@
 ﻿namespace Library.ViewModels
 {
+    using GalaSoft.MvvmLight.Command;
     using Models.GoogleModels;
     using Services;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-    public class SearchedBooksViewModel
+    using System.Windows.Input;
+    using System.Linq;
+
+    public class SearchedBooksViewModel : BaseViewModel
     {
         #region Attributes
 
-        public ObservableCollection<Item> lstBooks;
-        public string Book;
-        public string Author;
-        public string Category;
+        private ObservableCollection<Item> lstBooks;
+        private string Book;
+        private string Author;
+        private string Category;
+        private bool isRefreshing;
 
         #endregion
 
-        #region Services
 
-        public ServiceBooks apiService{ get; set; }
-        #endregion
 
         #region Properties
         public ObservableCollection<Item> LstBooks
         {
             get { return this.lstBooks; }
-            set { lstBooks = value; }
+            set { SetValue(ref lstBooks, value); }
         }
 
+        public bool IsRefreshing
+        {
+            get { return this.isRefreshing; }
+            set { SetValue(ref isRefreshing, value); }
+        }
+        
+        #endregion
+
+        #region Services
+        public ServiceBooks apiService { get; set; }
         #endregion
 
         #region Constructors
@@ -49,7 +61,20 @@
         }
         public async void LoadBooks()
         {
-            var response = await this.apiService.GetList<ModelBook>(Book, Author, Category);
+            this.IsRefreshing = true;
+            var connection = Connection.CheckConnection();
+
+            if (!connection.Result.IsSuccess)
+            {
+                this.IsRefreshing = false;
+
+                await App.Current.MainPage.DisplayAlert("Error", connection.Result.Message, "Cerrar");
+                await App.Current.MainPage.Navigation.PopAsync();
+            }
+
+            var response = await this.apiService.GetList<JSONModel>(Book, Author, Category);
+
+
 
             if (!response.IsSuccess)
             {
@@ -57,9 +82,24 @@
                 return;
             }
 
-            var list = (ModelBook)response.Result;
-            LstBooks = new ObservableCollection<Item>(list.items);
+            var list = (List<Item>) response.Result;
+
+
+            this.LstBooks = new ObservableCollection<Item>(list);
+            this.IsRefreshing = false;
         }
+        #endregion
+
+        #region Commands
+
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                return new RelayCommand(LoadBooks);
+            }
+        }
+
         #endregion
     }
 }

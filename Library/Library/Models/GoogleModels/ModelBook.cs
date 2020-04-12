@@ -5,6 +5,7 @@
     using Newtonsoft.Json.Linq;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     #endregion
     public class IndustryIdentifier
     {
@@ -41,7 +42,7 @@
         public ReadingModes readingModes { get; set; }
         public int pageCount { get; set; }
         public string printType { get; set; }
-        public List<string> categories { get; set; }
+        public List<string> Categories { get; set; }
         public double averageRating { get; set; }
         public int ratingsCount { get; set; }
         public string maturityRating { get; set; }
@@ -130,6 +131,24 @@
 
     public class Item
     {
+
+        public string bookName { get { return volumeInfo.title; } }
+        public string bookAuthors { get { return volumeInfo.authors.FirstOrDefault(); } }
+        public string bookCategories
+        {
+            get
+            {
+                if (volumeInfo.Categories == null)
+                {
+                    return "No cuenta con una categoria establecida";
+                }
+                return volumeInfo.Categories.FirstOrDefault();
+            }
+        }
+        public int bookPagesCount { get { return volumeInfo.pageCount; } }
+        public Pdf pdf { get { return accessInfo.pdf; } }
+        public string link { get { return accessInfo.webReaderLink; } }
+
         public string kind { get; set; }
         public string id { get; set; }
         public string etag { get; set; }
@@ -140,7 +159,8 @@
         public SearchInfo searchInfo { get; set; }
     }
 
-    public class ModelBook
+
+    public class JSONModel
     {
         public string kind { get; set; }
         public int totalItems { get; set; }

@@ -4,40 +4,100 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
+    <StackLayout BackgroundColor="#072357">
+        <Label Text="Libros de Grecia" TextColor="White" HorizontalOptions="CenterAndExpand" FontSize="Large" FontAttributes="Bold"/>
+        <ListView IsVisible="False"></ListView>
 
-    <ScrollView>
+
+        <Label Text="Libros Gratuitos de Google" FontSize="Large" FontAttributes="Bold" TextColor="White" HorizontalOptions="CenterAndExpand"/>
         <ListView
-            x:Name="lstBooks"
-            CachingStrategy="RecycleElement"
-            HasUnevenRows="True"
-            IsPullToRefreshEnabled="True"
-            IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
-            ItemTapped="Handle_ItemTapped"
-            ItemsSource="{Binding Items}"
-            RefreshCommand="{Binding RefreshCommand}">
-
-            <!--  Built in Cells  -->
+                BackgroundColor="#072357"
+                HasUnevenRows="True"
+                IsPullToRefreshEnabled="True"
+                IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                ItemsSource="{Binding LstBooks}"
+                RefreshCommand="{Binding RefreshCommand}"
+                SeparatorColor="White">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding .}" />
+                    <ViewCell>
+                        <Frame
+                                Margin="15"
+                                BorderColor="#072357"
+                                CornerRadius="55">
+                            <Grid BackgroundColor="White">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+
+                                <Frame
+                                        Grid.Row="0"
+                                        Grid.ColumnSpan="2"
+                                        BorderColor="#072357"
+                                        CornerRadius="15">
+                                    <Label
+                                            FontAttributes="Bold"
+                                            HorizontalOptions="CenterAndExpand"
+                                            Text="{Binding bookName}"
+                                            TextColor="Black" />
+                                </Frame>
+
+                                <Frame
+                                        Grid.Row="1"
+                                        Grid.ColumnSpan="2"
+                                        BorderColor="#072357"
+                                        CornerRadius="15">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <Label
+                                                Grid.Row="0"
+                                                Grid.Column="0"
+                                                HorizontalOptions="CenterAndExpand"
+                                                Text="Autor" />
+                                        <Label
+                                                Grid.Row="0"
+                                                Grid.Column="1"
+                                                HorizontalOptions="CenterAndExpand"
+                                                Text="Categoría" />
+
+                                        <Label
+                                                Grid.Row="1"
+                                                Grid.Column="0"
+                                                HorizontalOptions="CenterAndExpand"
+                                                Text="{Binding bookAuthors}"
+                                                TextColor="Black"
+                                                VerticalOptions="CenterAndExpand" />
+                                        <Label
+                                                Grid.Row="1"
+                                                Grid.Column="1"
+                                                HorizontalOptions="CenterAndExpand"
+                                                Text="{Binding bookCategories}"
+                                                TextColor="Black"
+                                                VerticalOptions="CenterAndExpand" />
+
+                                    </Grid>
+                                </Frame>
+
+                            </Grid>
+                        </Frame>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
-
-            <!--  Custom View Cells  -->
-            <!--
-            <ListView.ItemTemplate>
-              <DataTemplate>
-                <ViewCell>
-                  <StackLayout>
-                    <Label Text="{Binding Text}"
-                           Style="{DynamicResource ListItemTextStyle}" />
-                    <Label Text="{Binding Detail}"
-                           Style="{DynamicResource ListItemDetailTextStyle}"/>
-                  </StackLayout>
-                </ViewCell>
-              </DataTemplate>
-            </ListView.ItemTemplate>
-            -->
         </ListView>
-    </ScrollView>
+
+    </StackLayout>
 </ContentPage>

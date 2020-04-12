@@ -5,12 +5,10 @@
     using Xamarin.Forms;
     using System.Windows.Input;
     using Views;
-    using Library.Models.GoogleModels;
-    using System.Threading.Tasks;
-    using Plugin.Connectivity;
+    using Services;
     #endregion
 
-    public class MainViewModel
+    public class MainViewModel : BaseViewModel
     {
         #region Properties
         public string Book { get; set; }
@@ -20,36 +18,12 @@
         public ICommand SearchBooksCommand { get { return new RelayCommand(SearchBooks); } }
         #endregion
 
-        public async Task<Response> CheckConnection()
-        {
-            if (!CrossConnectivity.Current.IsConnected)
-                return new Response
-                {
-                    IsSuccess = false,
-                    Message = "Por favor active su internet!"
-                };
 
-            var isReachable = await CrossConnectivity.Current.IsRemoteReachable("youtube.com");
-
-            if (!isReachable)
-                return new Response
-                {
-                    IsSuccess = false,
-                    Message = "Por favor revice su conexión con internet!"
-                };
-
-            return new Response
-            {
-                IsSuccess = true,
-                Message = "OK"
-            };
-
-        }
 
         private async void SearchBooks()
         {
 
-            var connection = CheckConnection();
+            var connection = Connection.CheckConnection();
             if (!connection.Result.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", connection.Result.Message, "Ok");

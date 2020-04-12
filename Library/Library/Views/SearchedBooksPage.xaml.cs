@@ -22,12 +22,10 @@
 
         public SearchedBooksPage(string book, string author, string category)
         {
-            Books = GetSearchedBooksViewModel(book, author, category);
-            BindingContext = Books;
-
             InitializeComponent();
 
-            lstBooks.ItemsSource = Books.lstBooks;
+            Books = GetSearchedBooksViewModel(book, author, category);
+            BindingContext = Books;
         }
 
         async void Handle_ItemTapped(object sender, ItemTappedEventArgs e)
