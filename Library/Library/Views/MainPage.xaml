@@ -16,11 +16,11 @@
                 HorizontalOptions="CenterAndExpand"
                 IsClippedToBounds="True">
                 <Image
-                    x:Name="ImageGrecia"
                     Grid.Row="0"
                     Grid.ColumnSpan="2"
                     Aspect="AspectFit"
                     HeightRequest="75"
+                    Source="Grecia.png"
                     VerticalOptions="CenterAndExpand"
                     WidthRequest="75" />
             </Frame>

@@ -21,8 +21,6 @@ namespace Library.Views
             Main = GetMainViewModel();
             BindingContext = Main;
             InitializeComponent();
-            ImageGrecia.Source = ImageSource.FromFile("Grecia.png");
-            //ImageStars.Source = ImageSource.FromFile("flag.png");
         }
     }
 }

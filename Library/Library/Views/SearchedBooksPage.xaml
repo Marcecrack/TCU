@@ -5,26 +5,83 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <StackLayout BackgroundColor="#072357">
-        <Label Text="Libros de Grecia" TextColor="White" HorizontalOptions="CenterAndExpand" FontSize="Large" FontAttributes="Bold"/>
-        <ListView IsVisible="False"></ListView>
 
+        <Label
+            FontAttributes="Bold"
+            FontSize="Large"
+            HorizontalOptions="CenterAndExpand"
+            Text="Libros de Grecia"
+            TextColor="White" />
+        <ListView IsVisible="False" />
 
-        <Label Text="Libros Gratuitos de Google" FontSize="Large" FontAttributes="Bold" TextColor="White" HorizontalOptions="CenterAndExpand"/>
+        <Frame 
+            Margin="15"
+            BorderColor="White"
+            CornerRadius="55">
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding DisplayGoogleBooks}"/>
+            </Frame.GestureRecognizers>
+            <Grid>
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding DisplayGoogleBooks}" />
+                </Grid.GestureRecognizers>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    FontAttributes="Bold"
+                    FontSize="Large"
+                    HorizontalOptions="StartAndExpand"
+                    Text="Libros Gratuitos de Google"
+                    TextColor="Black" />
+                <Frame
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    BorderColor="Black"
+                    CornerRadius="70"
+                    HorizontalOptions="EndAndExpand"
+                    VerticalOptions="CenterAndExpand">
+                    <Label Text="{Binding GoogleBooksFreeTotal}" TextColor="Black" />
+                </Frame>
+            </Grid>
+        </Frame>
+        <Frame
+            Margin="15"
+            BackgroundColor="White"
+            BorderColor="#072357"
+            CornerRadius="55"
+            IsVisible="{Binding LblHasGoogleBooks, Converter={StaticResource nullToVisibilityConverter}}">
+            <Label
+                FontAttributes="Bold"
+                FontSize="Large"
+                HorizontalOptions="CenterAndExpand"
+                HorizontalTextAlignment="Center"
+                Text="No hay libros disponibles en Google"
+                TextColor="Black"
+                VerticalOptions="CenterAndExpand" />
+        </Frame>
         <ListView
-                BackgroundColor="#072357"
-                HasUnevenRows="True"
-                IsPullToRefreshEnabled="True"
-                IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
-                ItemsSource="{Binding LstBooks}"
-                RefreshCommand="{Binding RefreshCommand}"
-                SeparatorColor="White">
+            BackgroundColor="#072357"
+            HasUnevenRows="True"
+            IsPullToRefreshEnabled="True"
+            IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+            IsVisible="{Binding LstHasGoogleBooks, Converter={StaticResource nullToVisibilityConverter}}"
+            ItemsSource="{Binding LstBooks}"
+            RefreshCommand="{Binding RefreshCommand}"
+            SeparatorColor="White">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <Frame
-                                Margin="15"
-                                BorderColor="#072357"
-                                CornerRadius="55">
+                            Margin="15"
+                            BorderColor="#072357"
+                            CornerRadius="55">
                             <Grid BackgroundColor="White">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -37,22 +94,22 @@
 
 
                                 <Frame
-                                        Grid.Row="0"
-                                        Grid.ColumnSpan="2"
-                                        BorderColor="#072357"
-                                        CornerRadius="15">
+                                    Grid.Row="0"
+                                    Grid.ColumnSpan="2"
+                                    BorderColor="#072357"
+                                    CornerRadius="15">
                                     <Label
-                                            FontAttributes="Bold"
-                                            HorizontalOptions="CenterAndExpand"
-                                            Text="{Binding bookName}"
-                                            TextColor="Black" />
+                                        FontAttributes="Bold"
+                                        HorizontalOptions="CenterAndExpand"
+                                        Text="{Binding bookName}"
+                                        TextColor="Black" />
                                 </Frame>
 
                                 <Frame
-                                        Grid.Row="1"
-                                        Grid.ColumnSpan="2"
-                                        BorderColor="#072357"
-                                        CornerRadius="15">
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="2"
+                                    BorderColor="#072357"
+                                    CornerRadius="15">
                                     <Grid>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*" />
@@ -64,30 +121,30 @@
                                         </Grid.ColumnDefinitions>
 
                                         <Label
-                                                Grid.Row="0"
-                                                Grid.Column="0"
-                                                HorizontalOptions="CenterAndExpand"
-                                                Text="Autor" />
+                                            Grid.Row="0"
+                                            Grid.Column="0"
+                                            HorizontalOptions="CenterAndExpand"
+                                            Text="Autor" />
                                         <Label
-                                                Grid.Row="0"
-                                                Grid.Column="1"
-                                                HorizontalOptions="CenterAndExpand"
-                                                Text="Categoría" />
+                                            Grid.Row="0"
+                                            Grid.Column="1"
+                                            HorizontalOptions="CenterAndExpand"
+                                            Text="Categoría" />
 
                                         <Label
-                                                Grid.Row="1"
-                                                Grid.Column="0"
-                                                HorizontalOptions="CenterAndExpand"
-                                                Text="{Binding bookAuthors}"
-                                                TextColor="Black"
-                                                VerticalOptions="CenterAndExpand" />
+                                            Grid.Row="1"
+                                            Grid.Column="0"
+                                            HorizontalOptions="CenterAndExpand"
+                                            Text="{Binding bookAuthors}"
+                                            TextColor="Black"
+                                            VerticalOptions="CenterAndExpand" />
                                         <Label
-                                                Grid.Row="1"
-                                                Grid.Column="1"
-                                                HorizontalOptions="CenterAndExpand"
-                                                Text="{Binding bookCategories}"
-                                                TextColor="Black"
-                                                VerticalOptions="CenterAndExpand" />
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            HorizontalOptions="CenterAndExpand"
+                                            Text="{Binding bookCategories}"
+                                            TextColor="Black"
+                                            VerticalOptions="CenterAndExpand" />
 
                                     </Grid>
                                 </Frame>

@@ -1,10 +1,8 @@
 ﻿namespace Library.Views
 {
-    using System.Collections.ObjectModel;
+    using ViewModels;
     using Xamarin.Forms;
     using Xamarin.Forms.Xaml;
-    using ViewModels;
-    using System.Collections.Generic;
 
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SearchedBooksPage : ContentPage

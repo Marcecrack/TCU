@@ -2,6 +2,11 @@
 <Application
     x:Class="Library.App"
     xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <Application.Resources />
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converter="clr-namespace:Library.Converters">
+    <Application.Resources>
+        <ResourceDictionary>
+            <converter:NullToVisibilityConverter x:Key="nullToVisibilityConverter" />
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

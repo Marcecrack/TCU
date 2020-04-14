@@ -6,7 +6,7 @@
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Windows.Input;
-    using System.Linq;
+    using Xamarin.Forms;
 
     public class SearchedBooksViewModel : BaseViewModel
     {
@@ -17,10 +17,11 @@
         private string Author;
         private string Category;
         private bool isRefreshing;
+        private bool lstHasGoogleBooks;
+        private bool lblHasGoogleBooks;
+        private string googleBooksFreeTotal;
 
         #endregion
-
-
 
         #region Properties
         public ObservableCollection<Item> LstBooks
@@ -29,12 +30,27 @@
             set { SetValue(ref lstBooks, value); }
         }
 
+        public string GoogleBooksFreeTotal
+        {
+            get { return this.googleBooksFreeTotal; }
+            set { SetValue(ref this.googleBooksFreeTotal, value); }
+        }
+
         public bool IsRefreshing
         {
             get { return this.isRefreshing; }
             set { SetValue(ref isRefreshing, value); }
         }
-        
+        public bool LblHasGoogleBooks
+        {
+            get { return this.lblHasGoogleBooks; }
+            set { SetValue(ref lblHasGoogleBooks, value); }
+        }
+        public bool LstHasGoogleBooks
+        {
+            get { return this.lstHasGoogleBooks; }
+            set { SetValue(ref lstHasGoogleBooks, value); }
+        }
         #endregion
 
         #region Services
@@ -45,6 +61,7 @@
 
         public SearchedBooksViewModel(string book, string author, string category)
         {
+            this.GoogleBooksFreeTotal = "0";
             LoadAttributes(book, author, category);
             apiService = new ServiceBooks();
             LoadBooks();
@@ -59,6 +76,13 @@
             Author = author;
             Category = category;
         }
+
+        public void HideGoogleList()
+        {
+            if (this.LstHasGoogleBooks) this.LstHasGoogleBooks = false;
+            else this.LstHasGoogleBooks = true;
+        }
+
         public async void LoadBooks()
         {
             this.IsRefreshing = true;
@@ -84,9 +108,24 @@
 
             var list = (List<Item>) response.Result;
 
+            if (list == null)
+            {
+                this.LstHasGoogleBooks = false;
+                this.LblHasGoogleBooks = true;
+                this.LstBooks = new ObservableCollection<Item>(new List<Item>());
+                this.GoogleBooksFreeTotal = "0";
+            }
+            else
+            {
+                this.LstHasGoogleBooks = true;
+                this.LblHasGoogleBooks = false;
+                this.LstBooks = new ObservableCollection<Item>(list);
+                this.GoogleBooksFreeTotal = this.LstBooks.Count.ToString();
+            }
 
-            this.LstBooks = new ObservableCollection<Item>(list);
+
             this.IsRefreshing = false;
+            
         }
         #endregion
 
@@ -97,6 +136,14 @@
             get
             {
                 return new RelayCommand(LoadBooks);
+            }
+        }
+
+        public ICommand DisplayGoogleBooks
+        {
+            get
+            {
+                return new RelayCommand(HideGoogleList);
             }
         }
 
