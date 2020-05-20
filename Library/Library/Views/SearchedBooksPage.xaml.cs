@@ -1,8 +1,10 @@
 ﻿namespace Library.Views
 {
+    using Library.Models;
     using ViewModels;
     using Xamarin.Forms;
     using Xamarin.Forms.Xaml;
+
 
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SearchedBooksPage : ContentPage
@@ -31,7 +33,7 @@
             if (e.Item == null)
                 return;
 
-            await DisplayAlert("Item Tapped", "An item was tapped." + e.Item, "OK");
+            Books.GoogleBookTapped((ModelBook)e.Item);
 
             //Deselect Item
             ((ListView)sender).SelectedItem = null;

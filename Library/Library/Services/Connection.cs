@@ -1,6 +1,6 @@
 ﻿namespace Library.Services
 {
-    using Library.Models.GoogleModels;
+    using Library.Models;
     using Plugin.Connectivity;
     using System.Threading.Tasks;
 

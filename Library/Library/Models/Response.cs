@@ -1,4 +1,4 @@
-﻿namespace Library.Models.GoogleModels
+﻿namespace Library.Models
 {
     public class Response
     {

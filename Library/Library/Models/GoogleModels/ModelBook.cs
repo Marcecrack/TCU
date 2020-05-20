@@ -131,10 +131,17 @@
 
     public class Item
     {
-
-        public string bookName { get { return volumeInfo.title; } }
-        public string bookAuthors { get { return volumeInfo.authors.FirstOrDefault(); } }
-        public string bookCategories
+        public string kind { get; set; }
+        public string id { get; set; }
+        public string etag { get; set; }
+        public string selfLink { get; set; }
+        public VolumeInfo volumeInfo { get; set; }
+        public SaleInfo saleInfo { get; set; }
+        public AccessInfo accessInfo { get; set; }
+        public SearchInfo searchInfo { get; set; }
+        public string bookAuthor { get { return volumeInfo.authors.FirstOrDefault(); } }
+        public string bookDescription { get { return this.volumeInfo.description == null ? "Este libro no cuenta con una descripción" : volumeInfo.description; } }
+        public string bookCategory
         {
             get
             {
@@ -145,18 +152,6 @@
                 return volumeInfo.Categories.FirstOrDefault();
             }
         }
-        public int bookPagesCount { get { return volumeInfo.pageCount; } }
-        public Pdf pdf { get { return accessInfo.pdf; } }
-        public string link { get { return accessInfo.webReaderLink; } }
-
-        public string kind { get; set; }
-        public string id { get; set; }
-        public string etag { get; set; }
-        public string selfLink { get; set; }
-        public VolumeInfo volumeInfo { get; set; }
-        public SaleInfo saleInfo { get; set; }
-        public AccessInfo accessInfo { get; set; }
-        public SearchInfo searchInfo { get; set; }
     }
 
 

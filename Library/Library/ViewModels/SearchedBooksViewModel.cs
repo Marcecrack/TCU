@@ -1,10 +1,12 @@
 ﻿namespace Library.ViewModels
 {
     using GalaSoft.MvvmLight.Command;
+    using Library.Models;
     using Models.GoogleModels;
     using Services;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Linq;
     using System.Windows.Input;
     using Xamarin.Forms;
 
@@ -12,7 +14,7 @@
     {
         #region Attributes
 
-        private ObservableCollection<Item> lstBooks;
+        private ObservableCollection<ModelBook> lstBooks;
         private string Book;
         private string Author;
         private string Category;
@@ -24,7 +26,7 @@
         #endregion
 
         #region Properties
-        public ObservableCollection<Item> LstBooks
+        public ObservableCollection<ModelBook> LstBooks
         {
             get { return this.lstBooks; }
             set { SetValue(ref lstBooks, value); }
@@ -70,6 +72,12 @@
         #endregion
 
         #region Methods
+
+        private void BookTapped(object sender, ItemTappedEventArgs e)
+        {
+            var temp = e.Item;
+        }
+
         public void LoadAttributes(string book, string author, string category)
         {
             Book = book;
@@ -106,30 +114,46 @@
                 return;
             }
 
-            var list = (List<Item>) response.Result;
+            var list = (List<Item>)response.Result;
+
+            var listBooks = (from books in list
+                             select new ModelBook()
+                             {
+                                 BookTitle = books.volumeInfo.title,
+                                 BookCategory = books.bookCategory,
+                                 BookAuthor = books.bookAuthor,
+                                 BookDescription = books.volumeInfo.description,
+                                 BookPageCount = books.volumeInfo.pageCount,
+                                 BookAvailable = books.accessInfo.pdf.isAvailable,
+                                 BookPdf = books.accessInfo.pdf,
+                                 BookLink = books.accessInfo.pdf.acsTokenLink
+                             }).ToList();
+
 
             if (list == null)
             {
                 this.LstHasGoogleBooks = false;
                 this.LblHasGoogleBooks = true;
-                this.LstBooks = new ObservableCollection<Item>(new List<Item>());
+                this.LstBooks = new ObservableCollection<ModelBook>(new List<ModelBook>());
                 this.GoogleBooksFreeTotal = "0";
             }
             else
             {
                 this.LstHasGoogleBooks = true;
                 this.LblHasGoogleBooks = false;
-                this.LstBooks = new ObservableCollection<Item>(list);
+                this.LstBooks = new ObservableCollection<ModelBook>(listBooks);
                 this.GoogleBooksFreeTotal = this.LstBooks.Count.ToString();
             }
 
 
             this.IsRefreshing = false;
-            
+
         }
+
         #endregion
 
         #region Commands
+
 
         public ICommand RefreshCommand
         {
@@ -137,6 +161,11 @@
             {
                 return new RelayCommand(LoadBooks);
             }
+        }
+
+        public void GoogleBookTapped(ModelBook book)
+        {
+            //App.Current.MainPage.Navigation.PushAsync()
         }
 
         public ICommand DisplayGoogleBooks

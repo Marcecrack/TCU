@@ -14,12 +14,13 @@
             TextColor="White" />
         <ListView IsVisible="False" />
 
-        <Frame 
+        <Frame
             Margin="15"
+            BackgroundColor="Transparent"
             BorderColor="White"
             CornerRadius="55">
             <Frame.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding DisplayGoogleBooks}"/>
+                <TapGestureRecognizer Command="{Binding DisplayGoogleBooks}" />
             </Frame.GestureRecognizers>
             <Grid>
                 <Grid.GestureRecognizers>
@@ -38,8 +39,9 @@
                     FontAttributes="Bold"
                     FontSize="Large"
                     HorizontalOptions="StartAndExpand"
+                    HorizontalTextAlignment="Center"
                     Text="Libros Gratuitos de Google"
-                    TextColor="Black" />
+                    TextColor="White" />
                 <Frame
                     Grid.Row="0"
                     Grid.Column="1"
@@ -47,7 +49,10 @@
                     CornerRadius="70"
                     HorizontalOptions="EndAndExpand"
                     VerticalOptions="CenterAndExpand">
-                    <Label Text="{Binding GoogleBooksFreeTotal}" TextColor="Black" />
+                    <Label
+                        HorizontalTextAlignment="Center"
+                        Text="{Binding GoogleBooksFreeTotal}"
+                        TextColor="Black" />
                 </Frame>
             </Grid>
         </Frame>
@@ -74,6 +79,7 @@
             IsVisible="{Binding LstHasGoogleBooks, Converter={StaticResource nullToVisibilityConverter}}"
             ItemsSource="{Binding LstBooks}"
             RefreshCommand="{Binding RefreshCommand}"
+            ItemTapped="Handle_ItemTapped"
             SeparatorColor="White">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -101,7 +107,7 @@
                                     <Label
                                         FontAttributes="Bold"
                                         HorizontalOptions="CenterAndExpand"
-                                        Text="{Binding bookName}"
+                                        Text="{Binding BookTitle}"
                                         TextColor="Black" />
                                 </Frame>
 
@@ -135,14 +141,14 @@
                                             Grid.Row="1"
                                             Grid.Column="0"
                                             HorizontalOptions="CenterAndExpand"
-                                            Text="{Binding bookAuthors}"
+                                            Text="{Binding BookAuthor}"
                                             TextColor="Black"
                                             VerticalOptions="CenterAndExpand" />
                                         <Label
                                             Grid.Row="1"
                                             Grid.Column="1"
                                             HorizontalOptions="CenterAndExpand"
-                                            Text="{Binding bookCategories}"
+                                            Text="{Binding BookCategory}"
                                             TextColor="Black"
                                             VerticalOptions="CenterAndExpand" />
 
