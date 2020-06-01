@@ -5,6 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converter="clr-namespace:Library.Converters">
     <Application.Resources>
+        <Color x:Key="colorPrimary">#072357</Color>
+        <Color x:Key="colorPrimaryDark">#072357</Color>
+        <Color x:Key="colorAccent">#072357</Color>
         <ResourceDictionary>
             <converter:NullToVisibilityConverter x:Key="nullToVisibilityConverter" />
         </ResourceDictionary>

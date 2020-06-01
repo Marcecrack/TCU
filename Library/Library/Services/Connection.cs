@@ -15,7 +15,6 @@
                     IsSuccess = false,
                     Message = "Por favor active su internet!"
                 };
-
             return new Response
             {
                 IsSuccess = true,

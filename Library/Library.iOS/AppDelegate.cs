@@ -22,6 +22,7 @@ namespace Library.iOS
         //
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
+            UITabBar.Appearance.SelectedImageTintColor = UIColor.FromRGB(7, 35, 87);
             global::Xamarin.Forms.Forms.Init();
             LoadApplication(new App());
 

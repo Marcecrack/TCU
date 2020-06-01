@@ -3,9 +3,10 @@
     x:Class="Library.Views.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:Library.Views">
+    xmlns:local="clr-namespace:Library.Views"
+    Visual="Material">
 
-    <ScrollView>
+    <ScrollView BackgroundColor="#072357">
         <StackLayout BackgroundColor="#072357">
             <Frame
                 Margin="15"

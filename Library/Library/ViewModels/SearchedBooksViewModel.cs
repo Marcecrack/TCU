@@ -94,13 +94,13 @@
         public async void LoadBooks()
         {
             this.IsRefreshing = true;
-            var connection = Connection.CheckConnection();
+            var connection = await Connection.CheckConnection();
 
-            if (!connection.Result.IsSuccess)
+            if (!connection.IsSuccess)
             {
                 this.IsRefreshing = false;
 
-                await App.Current.MainPage.DisplayAlert("Error", connection.Result.Message, "Cerrar");
+                await App.Current.MainPage.DisplayAlert("Error", connection.Message, "Cerrar");
                 await App.Current.MainPage.Navigation.PopAsync();
             }
 
@@ -122,11 +122,10 @@
                                  BookTitle = books.volumeInfo.title,
                                  BookCategory = books.bookCategory,
                                  BookAuthor = books.bookAuthor,
-                                 BookDescription = books.volumeInfo.description,
+                                 BookDescription = books.bookDescription,
                                  BookPageCount = books.volumeInfo.pageCount,
                                  BookAvailable = books.accessInfo.pdf.isAvailable,
-                                 BookPdf = books.accessInfo.pdf,
-                                 BookLink = books.accessInfo.pdf.acsTokenLink
+                                 BookPdf = books.accessInfo.pdf
                              }).ToList();
 
 

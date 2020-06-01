@@ -107,7 +107,7 @@
     public class Pdf
     {
         public bool isAvailable { get; set; }
-        public string acsTokenLink { get; set; }
+        public string acsTokenLink { get { return this.acsTokenLink == null ? "Este libro no cuenta con Token" : acsTokenLink; } set { this.acsTokenLink = value; } }
     }
 
     public class AccessInfo

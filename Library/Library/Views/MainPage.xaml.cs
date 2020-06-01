@@ -19,8 +19,9 @@ namespace Library.Views
         public MainPage()
         {
             Main = GetMainViewModel();
-            BindingContext = Main;
             InitializeComponent();
+            BindingContext = Main;
+
         }
     }
 }

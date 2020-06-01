@@ -13,6 +13,8 @@ namespace Library
             InitializeComponent();
 
             MainPage = new NavigationPage(new MainPage());
+            //MainPage.BackgroundColor = new Color(7, 35, 87);
+            ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.FromRgb(7, 35, 87);
         }
 
         protected override void OnStart()
